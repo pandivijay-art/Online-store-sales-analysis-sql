@@ -1,0 +1,72 @@
+
+-- * Create a Table 
+CREATE TABLE sales (
+    order_id INT,
+    customer_name VARCHAR(50),
+    product_name VARCHAR(50),
+    category VARCHAR(50),
+    region VARCHAR(30),
+    quantity INT,
+    price INT,
+    order_date DATE,
+    payment_method VARCHAR(30)
+);
+
+-- * Insert Values into Table
+INSERT INTO sales
+(order_id, customer_name, product_name, category, region, quantity, price, order_date, payment_method)
+VALUES
+('101', 'Arun', 'Laptop', 'Electronics', 'North', '2', '55000', '2026-01-05', 'UPI'),
+('102', 'Priya', 'Mouse', 'Electronics', 'South', '3', '800', '2026-01-07', 'Card'),
+('103', 'Kumar', 'Keyboard', 'Electronics', 'East', '2', '1500', '2026-01-10', 'UPI'),
+('104', 'Divya', 'Chair', 'Furniture', 'West', '1', '7000', '2026-01-12', 'Cash'),
+('105', 'Rahul', 'Table', 'Furniture', 'North', '2', '9000', '2026-01-15', 'Card'),
+('106', 'Sneha', 'Headphones', 'Electronics', 'South', '4', '2500', '2026-01-18', 'UPI'),
+('107', 'Vijay', 'Notebook', 'Stationery', 'East', '10', '100', '2026-01-20', 'Cash'),
+('108', 'Meena', 'Pen', 'Stationery', 'West', '20', '50', '2026-01-22', 'UPI'),
+('109', 'Arun', 'Monitor', 'Electronics', 'North', '1', '18000', '2026-01-25', 'Card'),
+('110', 'Priya', 'Desk Lamp', 'Furniture', 'South', '3', '1200', '2026-01-28', 'UPI'),
+
+('111', 'Kumar', 'Laptop', 'Electronics', 'East', '1', '55000', '2026-02-02', 'Card'),
+('112', 'Divya', 'Mouse', 'Electronics', 'West', '5', '800', '2026-02-05', 'UPI'),
+('113', 'Rahul', 'Chair', 'Furniture', 'North', '2', '7000', '2026-02-08', 'Cash'),
+('114', 'Sneha', 'Table', 'Furniture', 'South', '1', '9000', '2026-02-11', 'Card'),
+('115', 'Vijay', 'Notebook', 'Stationery', 'East', '15', '100', '2026-02-14', 'UPI'),
+('116', 'Meena', 'Pen', 'Stationery', 'West', '25', '50', '2026-02-17', 'Cash'),
+('117', 'Arun', 'Headphones', 'Electronics', 'North', '2', '2500', '2026-02-20', 'UPI'),
+('118', 'Priya', 'Monitor', 'Electronics', 'South', '2', '18000', '2026-02-23', 'Card'),
+('119', 'Kumar', 'Desk Lamp', 'Furniture', 'East', '4', '1200', '2026-02-26', 'UPI'),
+('120', 'Divya', 'Laptop', 'Electronics', 'West', '1', '55000', '2026-02-28', 'Card'),
+
+('121', 'Rahul', 'Mouse', 'Electronics', 'North', '6', '800', '2026-03-03', 'UPI'),
+('122', 'Sneha', 'Keyboard', 'Electronics', 'South', '3', '1500', '2026-03-06', 'Card'),
+('123', 'Vijay', 'Chair', 'Furniture', 'East', '1', '7000', '2026-03-09', 'Cash'),
+('124', 'Meena', 'Table', 'Furniture', 'West', '2', '9000', '2026-03-12', 'UPI'),
+('125', 'Arun', 'Notebook', 'Stationery', 'North', '12', '100', '2026-03-15', 'Cash'),
+('126', 'Priya', 'Pen', 'Stationery', 'South', '30', '50', '2026-03-18', 'UPI'),
+('127', 'Kumar', 'Monitor', 'Electronics', 'East', '1', '18000', '2026-03-21', 'Card'),
+('128', 'Divya', 'Headphones', 'Electronics', 'West', '3', '2500', '2026-03-24', 'UPI'),
+('129', 'Rahul', 'Desk Lamp', 'Furniture', 'North', '5', '1200', '2026-03-27', 'Cash'),
+('130', 'Sneha', 'Laptop', 'Electronics', 'South', '2', '55000', '2026-03-30', 'Card');
+select * from sales;
+--1.find all orders where the quantity sold is greater then 5.
+select customer_name,quantity from sales where quantity>5;
+--2.display the all productes and their prices ,staring from the highest price to lowest price
+select product_name,price from sales order by price desc
+--3.how many orders were placed in each regian
+select region,count(*) from sales group by region	
+--4.find the total quantity of products sold in each category
+select sum(quantity) as total_quantity,category from sales group by category
+--5.find the average product price for each category
+select avg(price) as Average_price,category from sales group by category
+--6.find the regions where the total quantity of products sold in greater then 20.
+select region,sum(quantity) as Total_Quantity from sales group by region having sum(quantity)>20;
+--7.find the total sales amount for each product
+select product_name,sum(price*quantity) as sales_amount from sales group by product_name 
+--8.Most expensive proiduct in the store
+select product_name,price from sales where price =(select max(price)  from sales)limit 1
+--9.find the productes whose price is greater then the average price of all productes
+select order_id,product_name from sales where price >(select avg(price) from sales);
+--10.find the customer who placed the order with the highest quantity
+select customer_name as Highest_quantity_customer from sales where quantity =(select max(quantity) from sales);
+
