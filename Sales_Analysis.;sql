@@ -1,5 +1,5 @@
 
--- * Create a Table 
+--  Create a Table 
 CREATE TABLE sales (
     order_id INT,
     customer_name VARCHAR(50),
@@ -12,7 +12,7 @@ CREATE TABLE sales (
     payment_method VARCHAR(30)
 );
 
--- * Insert Values into Table
+--  Insert Values into Table
 INSERT INTO sales
 (order_id, customer_name, product_name, category, region, quantity, price, order_date, payment_method)
 VALUES
